@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p class="text">Hello</p>
+    <script type="module" src="./script.js"></script>
+    <script>
+      fetch("/upload")
+        .then((res) => res.json())
+        .then((files) => {
+          for (const file of files) {
+            const a = document.createElement("a");
+            a.textContent = file.name;
+            const filePath = file.path.replace("./", "");
+            console.log(filePath + "/" + file.name);
+            a.href = `val/${file.name}`;
+            a.download = file.name;
+            document.body.appendChild(a);
+
+            // const form = document.createElement("form");
+            // const btn = document.createElement("button");
+            // form.action = file.name;
+            // form.method = "get";
+            // btn.type = "submit";
+            // btn.textContent = file.name;
+
+            // form.appendChild(btn);
+            // document.body.appendChild(form);
+          }
+        });
+    </script>
+  </body>
+</html>

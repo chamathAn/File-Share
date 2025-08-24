@@ -3,15 +3,18 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "concurrently 'bun run --watch src/index.ts' 'tailwindcss -i ./source/styles.css -o ./public/output.css --watch"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.3.3",
     "@elysiajs/static": "^1.3.0",
+    "@gtramontina.com/elysia-tailwind": "2.0.0",
+    "concurrently": "^9.2.0",
     "elysia": "latest"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "tailwindcss": "3"
   },
   "module": "src/index.js"
 }

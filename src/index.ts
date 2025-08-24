@@ -2,10 +2,13 @@ import { Elysia, t } from "elysia";
 import { staticPlugin } from "@elysiajs/static";
 import fs from "fs";
 import { cors } from "@elysiajs/cors";
+import { tailwind } from "@gtramontina.com/elysia-tailwind";
 
-const FILE_PATH = "./val";
+const FILE_PATH =
+  "C:/Users/chama/Downloads/[Judas] Bleach (Season 17 pt.3) [1080p][HEVC x265 10bit][Dual-Audio][Multi-Subs]v2";
 
 const app = new Elysia()
+
   .use(
     staticPlugin({
       prefix: "/",
@@ -15,9 +18,21 @@ const app = new Elysia()
   )
   .use(
     staticPlugin({
-      prefix: "/val",
+      prefix: "/download",
       assets: FILE_PATH,
       enableDecodeURI: true,
+    })
+  )
+  .use(
+    tailwind({
+      path: "/public/output.css",
+      source: "source/styles.css",
+      config: "tailwind.config.js",
+      options: {
+        minify: true,
+        map: true,
+        autoprefixer: false,
+      },
     })
   )
   .use(cors())
@@ -28,8 +43,7 @@ const app = new Elysia()
       return "";
     }
     const files = fs.readdirSync(FILE_PATH, { withFileTypes: true });
-    console.log(files);
-    return files;
+    return { files, folder: FILE_PATH.split("/").pop() };
   })
   .listen({ port: 8080, hostname: "localhost" });
 

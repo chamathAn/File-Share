@@ -3,24 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css" />
+
+    <link href="./output.css" rel="stylesheet" />
     <title>Document</title>
   </head>
-  <body>
-    <p class="text">Hello</p>
+  <body class="bg-[#5a5e7a]">
+    <p class="text-xl font-bold text-blue-200 pb-5">
+      Select the file to download
+    </p>
+
     <script type="module" src="./script.js"></script>
     <script>
       fetch("/upload")
         .then((res) => res.json())
-        .then((files) => {
+        .then(({ files, folder }) => {
+          // folder.textContent = folder;
           for (const file of files) {
             const a = document.createElement("a");
+            const br = document.createElement("br");
+            const num = document.createElement("span");
             a.textContent = file.name;
+            // a.cla = "text-md ml-10 text-blue-200";
             const filePath = file.path.replace("./", "");
-            console.log(filePath + "/" + file.name);
-            a.href = `val/${file.name}`;
+            // console.log(filePath + "/" + file.name);
+            num.textContent = files.indexOf(file) + 1;
+            a.href = `/download/${file.name}`;
             a.download = file.name;
+            a.className = "text-md ml-5 text-blue-200";
+
+            document.body.appendChild(num);
             document.body.appendChild(a);
+            document.body.appendChild(br);
 
             // const form = document.createElement("form");
             // const btn = document.createElement("button");

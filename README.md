@@ -25,6 +25,7 @@ bun install
 ```
 
 2. Copy the folder path that you need to share and paste it in `src/index.ts` file.
+   
    > _Note_ : Don't add any file names at the end of the file path. Copy only the path of the folders
 
 ```typescript

@@ -6,7 +6,7 @@ import { tailwind } from "@gtramontina.com/elysia-tailwind";
 import archiver from "archiver";
 import os from "node:os";
 
-const FILE_PATH = "C:/Users/chama/Downloads/Test Folder";
+const FILE_PATH = "Your file path goes here";
 
 const IpV4 = Object.values(os.networkInterfaces())
   .flat()

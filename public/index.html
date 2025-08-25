@@ -5,19 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link href="./output.css" rel="stylesheet" />
-    <title>Document</title>
+    <title>File Share</title>
   </head>
-  <body class="bg-[#5a5e7a]">
-    <p class="text-xl font-bold text-blue-200 pb-5">
+  <body class="bg-[#252630] p-5">
+    <p class="pb-5 text-xl font-bold text-blue-200">
       Select the file to download
     </p>
-
-    <script type="module" src="./script.js"></script>
     <script>
       fetch("/upload")
         .then((res) => res.json())
         .then(({ files, folder }) => {
-          // folder.textContent = folder;
+          // zip folder downloader
+          const folderATag = document.createElement("a");
+          folderATag.href = `temp/${folder}.zip`;
+          folderATag.download = `${folder}.zip`;
+
+          // download image handler
+          folderATag.className = "hover:cursor-pointer";
+          const fdwn = document.createElement("img");
+          fdwn.src = "./icons/FolderDownload.svg";
+          fdwn.className = "w-4 h-auto";
+          fdwn.alt = "Download";
+          folderATag.appendChild(fdwn);
+
+          // folder path handler
+          const folderName = document.createElement("p");
+          folderName.textContent = folder;
+          folderName.className = "text-xl text-[#ff6188] pb-2";
+
+          // zip and folder display
+          const folderDiv = document.createElement("div");
+          folderDiv.className = "flex items-center gap-3";
+          folderDiv.appendChild(folderATag);
+          folderDiv.appendChild(folderName);
+          document.body.appendChild(folderDiv);
+
+          // content file display and download
           for (const file of files) {
             const a = document.createElement("a");
             const br = document.createElement("br");
@@ -26,11 +49,15 @@
             // a.cla = "text-md ml-10 text-blue-200";
             const filePath = file.path.replace("./", "");
             // console.log(filePath + "/" + file.name);
-            num.textContent = files.indexOf(file) + 1;
+            num.textContent =
+              files.indexOf(file) + 1 < 10
+                ? "0" + (files.indexOf(file) + 1)
+                : files.indexOf(file) + 1;
+            num.className = "text-md text-[#e1e3e4]";
+
             a.href = `/download/${file.name}`;
             a.download = file.name;
-            a.className = "text-md ml-5 text-blue-200";
-
+            a.className = "text-md ml-5 text-[#e1e3e4] hover:underline";
             document.body.appendChild(num);
             document.body.appendChild(a);
             document.body.appendChild(br);
